@@ -1,0 +1,48 @@
+.card-layout {
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0rem;
+    width: 14rem;
+    cursor: pointer;
+    background-color: white;
+}
+
+
+.card-img {
+    height: 15rem;
+    text-align: center;
+}
+
+.card-img>img {
+    width: 14rem;
+    object-fit: contain;
+}
+
+.card-body {
+    margin: 1rem 0.7rem;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+
+}
+
+.button-add-cart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.card-title{
+    font-weight: 400;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.card-text{
+    font-weight: 700;
+}

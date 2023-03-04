@@ -1,0 +1,59 @@
+.checkout-layout {
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.billing {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem;
+}
+
+.billing-heading {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.checkout-right-section {
+    border: 1px solid silver;
+    border-radius: 1.3rem;
+    padding: 2rem;
+    width: 30vw;
+    margin: 1rem;
+}
+
+.selected-address>input {
+    width: 1rem;
+    background-color: red;
+    margin: 0.3rem;
+}
+
+.selected-address{
+    display: flex;
+}
+
+.address-section{
+    border: 1px solid silver;
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.payment-method {
+    margin-top: 1rem;
+    border: 1px solid black;
+    padding: 2rem;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+}
+
+.pay-with>div>input {
+    margin: 0.3rem;
+    width: 1rem;
+}
+.checkout-left-section{
+    width: 68vw;
+}
+
+

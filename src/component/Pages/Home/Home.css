@@ -1,0 +1,14 @@
+::-webkit-scrollbar{
+    display: none;
+}
+
+
+.home-layout{
+    margin-top: rem;
+}
+
+.banner-layout{
+    padding: 0.5rem;
+    margin-left: -1rem;
+    object-fit: none;
+}

@@ -1,0 +1,33 @@
+.cart-layout{
+    margin-top: 8rem;
+    display: flex;
+    flex-flow: wrap row;
+}
+
+.left-section{
+    width: 70vw;
+}
+
+.right-section{
+    text-align: center;
+    width: 30vw;
+}
+
+.cart-summary{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+@media screen and (width<=750px) {
+    .cart-layout{
+        flex-flow:column-reverse;
+    }
+    .left-section{
+        width: 100vw;
+    }
+    .right-section{
+        margin: 1rem;
+        width: 100vw;
+    }
+}

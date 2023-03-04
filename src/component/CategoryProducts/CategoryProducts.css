@@ -1,0 +1,14 @@
+.search-category-product-layout{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.search-category-layout{
+    margin-top: 6rem;
+
+}
+
+.search-category-with-filter{
+ display: flex;
+}

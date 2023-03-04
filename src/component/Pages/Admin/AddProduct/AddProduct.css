@@ -1,0 +1,8 @@
+.add-product{
+    width: 75%;
+    border: 1px solid purple;
+    background-color: rgb(242, 202, 242);
+    margin : 3rem auto;
+    padding: 1rem;
+    border-radius: 1rem;
+}

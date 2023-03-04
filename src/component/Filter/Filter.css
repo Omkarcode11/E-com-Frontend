@@ -1,0 +1,21 @@
+.max-price{
+    padding: 0.2rem 0.5rem;
+    width: 7rem;
+    border-radius: 0.5rem;
+}
+
+.filter-layout-1{
+
+    font-weight: 500;
+    margin-top: 8rem;
+    padding: 0.5rem;
+    position: relative;
+    position: sticky;
+    top: 5rem;
+}
+
+.sticky{
+    position: fixed;
+    top: 4rem;
+    z-index: 2
+}

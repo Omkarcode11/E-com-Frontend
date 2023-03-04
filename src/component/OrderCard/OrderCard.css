@@ -1,0 +1,31 @@
+.order-product-card {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border: 1px solid silver;
+    margin: 0.5rem;
+    margin-right: 1rem;
+    border-radius: 1rem;
+    align-items: center;
+    font-weight: 500;
+}
+
+.order-product-img {
+    height: 10rem;
+    width: 8rem;
+}
+
+.order-product-img>img {
+    object-fit: contain;
+    border-radius: 0.4rem;
+}
+
+.order-product-info>div {
+    margin-bottom: 1rem;
+}
+
+.order-product-info {
+    text-align: center;
+}

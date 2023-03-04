@@ -1,0 +1,45 @@
+.userDetail-layout{
+    margin-top: 6rem;
+}
+
+
+.top-section{
+    display: flex;
+    align-items: center;
+}
+
+.user-image-container{
+    height: 15rem;
+    width : 15rem;
+    margin: 0rem 3rem
+}
+
+.user-image{
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+
+.user-info-edit{
+    margin: 4rem;
+    width: 80vw;
+}
+
+.user-info-edit>input{
+    width: 80vw;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid silver;
+}
+
+.user-info-edit>h5{
+    margin-top: 1rem;
+
+}
+
+.user-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+}

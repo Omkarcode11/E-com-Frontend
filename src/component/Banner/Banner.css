@@ -1,0 +1,10 @@
+.banner {
+    margin-top: 5rem;
+}
+
+
+
+.carousel-item>img {
+    margin: 1rem;
+    object-fit: cover !important;
+}

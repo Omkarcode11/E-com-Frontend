@@ -1,0 +1,54 @@
+.product-detail {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 6rem;
+
+}
+
+
+.product-detail-img{
+    width: 50%;
+    height: 50vh;
+    
+}
+
+
+.product-detail-img > img  {
+    object-fit: contain;
+
+}
+
+
+.product-details-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 3rem;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: scale-down;
+}
+
+.card-review {
+    font-weight: 300;
+}
+
+.product-detail-button {
+    display: flex;
+
+}
+
+.suggested-card {
+    display: flex;
+    width: 100%;
+    margin-top: 5rem;
+    overflow-x: scroll;
+
+}

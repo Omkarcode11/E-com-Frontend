@@ -1,0 +1,26 @@
+.home-products{
+    display: flex;
+    flex-flow: nowrap;
+    overflow-y: auto;
+
+    margin: 0.3rem 1rem;
+}
+
+
+.category-products{
+    margin: 1rem 0rem;
+    background-color: whitesmoke;
+    padding: 0.5rem;
+}
+
+.product-category-arrow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.more-product-right-arrow{
+    margin-right: 2rem;
+    cursor: pointer;
+}

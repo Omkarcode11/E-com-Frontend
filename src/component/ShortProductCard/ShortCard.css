@@ -1,0 +1,25 @@
+.review-delivery {
+    
+    border: 1px solid silver;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+
+.delivery-product{
+    display: flex;
+    align-items: center;
+}
+
+.delivery-img{
+    width: 8rem;
+    height: 8rem;
+    margin-right: 3rem;
+}
+
+.delivery-img>img{
+    object-fit: contain;
+    border-radius: 0.3rem;
+}
+
