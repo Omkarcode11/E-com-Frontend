@@ -1,1 +1,1 @@
-export const URL = "http://34.217.126.82:8008";
+export const URL = "https://rajdhani-backend.onrender.com";
