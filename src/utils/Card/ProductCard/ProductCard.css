@@ -1,6 +1,4 @@
 .card-layout {
-    border: 1px solid black;
-    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     margin: 1rem 0rem;
@@ -8,7 +6,12 @@
     cursor: pointer;
     background-color: white;
 }
-
+.warning{
+    background-color: rgb(255, 255, 173);
+}
+.success{
+    background-color: lightgreen;
+}
 
 .card-img {
     height: 15rem;

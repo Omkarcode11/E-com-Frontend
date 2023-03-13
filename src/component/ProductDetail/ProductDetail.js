@@ -63,7 +63,7 @@ function ProductDetail() {
         <div className='product-details-text'>
           <div className='card-body'>
             <h5 className='card-title h1 py-2'>{product.name}</h5>
-            <h6 className='card-title h4 pb-3'>Price ₹{product.price}</h6>
+            <h6 className='card-title h4 pb-3'>Price ₹{product.price} <del>{product.price*1.5 }</del><sup> 25% off</sup></h6>
             <h6 className='card-review h7 pt-3'>
               {product.rating
                 ? new Array(product.rating).fill(

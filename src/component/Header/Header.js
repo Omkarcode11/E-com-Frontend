@@ -1,19 +1,19 @@
 // import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import { AppContext } from '../../App';
-import { addOrder } from '../../redux/feature/orderSlice';
-import { URL } from '../../utils/BASE_URL';
-import './Header.css';
+import { addOrder } from "../../redux/feature/orderSlice";
+import { URL } from "../../utils/BASE_URL";
+import "./Header.css";
 
 function Header() {
   // const { ourUser, setOurUser } = useContext(AppContext);
-  const [searchStr, setSearchStr] = useState('');
+  const [searchStr, setSearchStr] = useState("");
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const user = useSelector((state)=>state.user)
+  const user = useSelector((state) => state.user);
   // const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   // let isAuthenticated = false
   // let user = {email : 'omkar@12324'}
@@ -36,8 +36,14 @@ function Header() {
 
   return (
     <div className="header-layout">
-      <nav className="navbar navbar-expand-sm navbar-dark" style={{ backgroundColor: ' #720058' }}>
-        <Link className="navbar-brand" to={'/'}>
+      <nav
+        className="navbar navbar-expand-sm navbar-light"
+        style={{ backgroundColor: "white" }}
+      >
+        <Link className="navbar-brand d-flex" to={"/"}>
+          <div className="logo mx-2">
+            <img src="assets/logo.png" alt="logo" />
+          </div>
           Rajdhani
         </Link>
         <button
@@ -66,20 +72,18 @@ function Header() {
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" to={'/cart'} aria-current="page">
-                Cart <span className="cart-count">{cart.length}</span>{' '}
-                <span className="visually-hidden">(current)</span>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link active" to={'/order'} onClick={myOrderHandler}>
+              <Link
+                className="nav-link active"
+                to={"/order"}
+                onClick={myOrderHandler}
+              >
                 My Order
               </Link>
             </li>
             <li className="nav-item dropdown">
               <Link
                 className="nav-link active px-2 dropdown-toggle"
-                to={'/'}
+                to={"/"}
                 id="dropdownId"
                 data-bs-toggle="dropdown"
                 aria-haspopup="true"
@@ -88,7 +92,10 @@ function Header() {
                 Categories
               </Link>
               <div className="dropdown-menu" aria-labelledby="dropdownId">
-                <Link className="dropdown-item" to={`/category/search/${'all'}`}>
+                <Link
+                  className="dropdown-item"
+                  to={`/category/search/${"all"}`}
+                >
                   All
                 </Link>
                 <Link className="dropdown-item" to={`/category/search/${1}`}>
@@ -103,36 +110,62 @@ function Header() {
               </div>
             </li>
           </ul>
-          <form className="d-flex my-2 my-lg-0">
+          <div className="search">
             <input
               onChange={(e) => setSearchStr(e.target.value)}
-              className="form-control me-sm-2"
+              
+              className="border-0"
               type="text"
               placeholder="Search"
             />
-            <Link to={`/search/${searchStr}`} className="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <img src="/assets/search.png" alt="search" />
+          </div>
+          {/* <Link to={`/search/${searchStr}`} className="btn btn-outline-success my-2 my-sm-0" type="submit">
               Search
-            </Link>
-          </form>
+            </Link> */}
           {user.isAuthenticated ? (
-            <Link to="/userinfo" className="mx-2 logout text-light">{`Hi! ${user?.firstName[0].toUpperCase()+user?.firstName.slice(1)}`}</Link>
+            <Link to="/userinfo" className="mx-2 logout nav-link ">{`Hi! ${
+              user?.firstName[0].toUpperCase() + user?.firstName.slice(1)
+            }`}</Link>
           ) : (
             <Link
-              className="nav-link login px-2 active text-light"
-              to={'/auth'}
+              className="nav-link d-flex align-items-center login px-3 active"
+              to={"/auth"}
               aria-current="page"
             >
-              Login<span className="visually-hidden"></span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="bi bi-person-circle"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                />
+              </svg>
+              Account<span className="visually-hidden"></span>
             </Link>
           )}
+           <Link
+                className="pe-3 nav-link"
+                to={"/cart"}
+                aria-current="page"
+              >
+                Cart <span className="cart-count">{cart.length}</span>{" "}
+                <span className="visually-hidden">(current)</span>
+              </Link>
         </div>
       </nav>
-      {'omkar' === 'SuperUser' ? (
-        <Link className="btn btn-danger" to={'/admin'}>
+      {"omkar" === "SuperUser" ? (
+        <Link className="btn btn-danger" to={"/admin"}>
           Admin
         </Link>
       ) : (
-        ''
+        ""
       )}
     </div>
   );

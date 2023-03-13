@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+
+}
+*{
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-family: 'Merienda', cursive;
 }
 
 .App-logo {
@@ -23,6 +28,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+del{
+  color: rgb(255, 50, 50);
+}
+sup{
+  color: green;
+}
+
 
 .App-link {
   color: #61dafb;

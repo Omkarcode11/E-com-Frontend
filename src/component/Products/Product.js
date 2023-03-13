@@ -51,6 +51,7 @@ function Product() {
               description={item.description}
               id={item.id}
               categoryId={item.categoryId}
+              rating = {item.rating}
             />
           ))}
         </div>

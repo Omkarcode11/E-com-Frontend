@@ -5,6 +5,8 @@
 
 
 .carousel-item>img {
-    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     object-fit: cover !important;
 }

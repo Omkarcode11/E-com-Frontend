@@ -19,16 +19,16 @@ function Banner() {
         <div className="carousel-inner" role="listbox">
           <div className="carousel-item active">
             <img
-              src="https://picsum.photos/3000/1000"
+              src="/assets/Banner1.jpg"
               className="w-100 d-block"
               alt="First slide"
             />
           </div>
           <div className="carousel-item">
-            <img src="https://picsum.photos/3000/1001" className="w-100 d-block" alt="Second slide" />
+            <img src="/assets/Banner2.jpg" className="w-100 d-block" alt="Second slide" />
           </div>
           <div className="carousel-item">
-            <img src="https://picsum.photos/3000/1002" className="w-100 d-block" alt="Third slide" />
+            <img src="/assets/Banner3.jpg" className="w-100 d-block" alt="Third slide" />
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
