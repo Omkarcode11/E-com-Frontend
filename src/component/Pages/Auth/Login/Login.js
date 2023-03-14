@@ -19,25 +19,33 @@ export default function Login({ logOrSign, setLogOrSigh }) {
   }
 
   async function login(data) {
-    let getData = await axios.post(`${URL}/auth/login`, data);
+    // let getData = await axios.post(`${URL}/auth/login`, data);
+    let user = JSON.parse(localStorage.getItem('user'))
+      if(user.phone === data.email){
+          dispatch(addUser({...user,isAuthenticated:true}))
+        if(user.password===data.password){
+          navigate('/')
+        }
+      }
 
-    if (getData.statusText === "OK") {
-      dispatch(addUser({...getData.data,isAuthenticated:true}))
-      navigate("/");
-    }
+    // if (getData.statusText === "OK") {
+    //   navigate("/");
+    // }
   }
 
   return (
     <div className='login-layout'>
       <h1 className='login-heading'>Login</h1>
+      <div>
+
       <div
         className='login-form'
         onChange={(e) => fillData(e)}>
         <input
           className='login-name-input px-2'
           name='email'
-          type={"email"}
-          placeholder='Email'
+          type={"Number"}
+          placeholder='Phone Number'
         />
         <input
           className='login-name-input px-2'
@@ -50,18 +58,19 @@ export default function Login({ logOrSign, setLogOrSigh }) {
         <div>
           <button
             onClick={() => setLogOrSigh(!logOrSign)}
-            className='btn btn-primary'>
+            className='btn btn-primary log-btn'>
             SignUp
           </button>
         </div>
         <div>
           <button
-            className='btn btn-success'
+            className='btn btn-success log-btn'
             onClick={() => login(data)}>
             Login
           </button>
         </div>
       </buttons>
+              </div>
     </div>
   );
 }

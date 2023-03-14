@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { manageQuantity, removeItem } from '../../../../redux/feature/cartSlice';
 import './CartProductCard.css';
 
 function CartProductCard({ id, name, img, price, qty }) {
- 
+  
    const dispatch = useDispatch();
-
+   const navigate = useNavigate()
    function manageQty(str){
     if(str==='add'){
       dispatch(manageQuantity({
@@ -20,6 +21,9 @@ function CartProductCard({ id, name, img, price, qty }) {
       }))
     }
    }
+   function productDetail(id){
+     navigate(`/product/detail/${id}/1`)
+   }
 
   return (
     <div className="cartProductCard">
@@ -27,7 +31,9 @@ function CartProductCard({ id, name, img, price, qty }) {
         <img src={img} alt="product-img" />
       </div>
       <div className="cart-product-detail">
-        <h4>{name}</h4>
+        <div onClick={()=>productDetail(id)}>
+        <h4 className='float-start'>{name.slice(0,30)}...</h4>
+        </div>
         <div className="qty-buttons">
           <span onClick={() => manageQty('add')} className="add-qty">
             <svg

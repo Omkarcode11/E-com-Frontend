@@ -22,7 +22,6 @@ export const AppContext = createContext();
 
 function App() {
   const [ourUser,setOurUser] = useState({})
-  console.log(process.env.NODE_ENV)
 
   return (
     <Provider store={store}>

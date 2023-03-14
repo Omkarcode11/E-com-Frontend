@@ -5,6 +5,8 @@
     width: 14rem;
     cursor: pointer;
     background-color: white;
+    height:29rem;
+    justify-content:space-between ;
 }
 .warning{
     background-color: rgb(255, 255, 173);
@@ -24,7 +26,12 @@
 }
 
 .card-body {
+    height: 35%;
     margin: 1rem 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background-color: red; */
 }
 
 .link {
@@ -48,4 +55,10 @@
 
 .card-text{
     font-weight: 700;
+}
+
+.link:hover{
+    transform: scale(1.04);
+    text-decoration: none;
+    color: black; 
 }

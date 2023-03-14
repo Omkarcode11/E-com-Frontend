@@ -28,20 +28,19 @@ function ProductCard(props) {
         })
       );
   }
-  console.log(props.name,props.rating)
 
   return (
     <div className="card-layout m-1">
+        <Link className="link" to={`/product/detail/${props.id}/${props.categoryId}`}>
       <div className="card-img">
         <img src={props.img} className='p-3' alt="Title" />
       </div>
       <div className="card-body">
-        <Link className="link" to={`/product/detail/${props.id}/${props.categoryId}`}>
           <h4 className="card-title">{props.name.slice(0,25)}...</h4>
-        </Link>
         <div>{props.rating?new Array(props.rating).fill(star):new Array(3).fill(star)}</div>
         <p className="card-text">Price {props.price} <del>{props.price*1.5 }</del><sup> 25% off</sup></p>
       </div>
+        </Link>
       <div className="button-add-cart">
         <div>
           <button onClick={cartHandler} className="btn warning product-add-cart-btn">Add Cart</button>
@@ -55,7 +54,7 @@ function ProductCard(props) {
             price : props.price,
             qty : 1
           }]))}
-           className="btn success product-but-btn">
+          className="btn success product-but-btn">
             Buy Now
           </Link>
         </div>

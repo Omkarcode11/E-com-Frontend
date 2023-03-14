@@ -1,9 +1,12 @@
 .product-detail {
+    height: 70vh;
     padding: 1rem;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    align-items: center;
     margin-top: 6rem;
+    /* background-color: red; */
 
 }
 
@@ -61,3 +64,4 @@ img {
     overflow-x: scroll;
 
 }
+

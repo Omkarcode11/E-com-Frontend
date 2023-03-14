@@ -15,9 +15,7 @@ function SearchProduct() {
   const search = useParams();
 
   async function loadSearchProducts(search) {
-    console.log(search.name);
     let products = await axios.get(`${URL}/search/${search.name}`);
-    console.log(products);
     setSearchProducts(products.data);
   }
 
@@ -26,7 +24,6 @@ function SearchProduct() {
   }, [search]);
 
   useEffect(() => {
-    console.log(filter);
   }, [search, filter]);
 
   return searchProducts ? (

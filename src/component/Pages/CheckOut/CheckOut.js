@@ -67,7 +67,7 @@ export default function CheckOut() {
     }
   }, []);
 
-  console.log(order)
+  // console.log(order)
 
   return (
     <div className="checkout-layout">

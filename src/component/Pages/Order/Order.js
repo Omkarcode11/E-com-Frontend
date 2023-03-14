@@ -12,11 +12,9 @@ function Order() {
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
    const isAuthenticated =false
    const loginWithRedirect = () => {
-     console.log("lowinWith redirect");
    };
   const getOrderByUser = async (userId) => {
     let allOrders = await axios.post(`${URL}/order`, { id: userId });
-    console.log(allOrders);
     setAllOrders(allOrders.data);
   };
 
@@ -28,7 +26,6 @@ function Order() {
     }
   }, []);
 
-  console.log(allOrder);
   return (
     <div className="Order-layout">
       <div>

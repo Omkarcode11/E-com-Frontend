@@ -10,7 +10,6 @@ function Product() {
 
   async function getProductsByCategoryId(arr) {
     let products = await axios.post(`${URL}/category/search`, { ids: arr });
-    console.log(products);
     setData(products.data);
   }
 
@@ -18,13 +17,12 @@ function Product() {
     getProductsByCategoryId([1, 2, 3]);
   }, []);
 
-  console.log(data)
 
   return (
     <div>
       <div className="category-products">
         <div className="product-category-arrow">
-          <h4 className="mx-4">Men's Wear</h4>
+          <h4 className="mx-4 ">Men's Wear</h4>
           <Link to={'/category/search/1'}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

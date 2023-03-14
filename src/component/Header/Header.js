@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { AppContext } from '../../App';
 import { addOrder } from "../../redux/feature/orderSlice";
 import { URL } from "../../utils/BASE_URL";
@@ -12,6 +12,7 @@ function Header() {
   // const { ourUser, setOurUser } = useContext(AppContext);
   const [searchStr, setSearchStr] = useState("");
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   // const { loginWithRedirect, isAuthenticated, user } = useAuth0();
@@ -23,6 +24,11 @@ function Header() {
     let res = await axios.post(`${URL}/order`, { id: user.id });
     let data = res.data;
     dispatch(addOrder(data));
+  }
+
+  function search(str){
+     navigate(`/search/${str}`)
+     setSearchStr('')
   }
 
   // useEffect(() => {
@@ -69,7 +75,7 @@ function Header() {
             />
           </svg>
         </button>
-        <div className="collapse navbar-collapse" id="collapsibleNavId">
+        <div className="collapse navbar-collapse mx-3" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
             <li className="nav-item">
               <Link
@@ -113,18 +119,16 @@ function Header() {
           <div className="search">
             <input
               onChange={(e) => setSearchStr(e.target.value)}
-              
-              className="border-0"
+              onKeyDownCapture={(e)=>e.key==="Enter"&&search(searchStr)}
+              className="border-0 input-search"
               type="text"
+              value={searchStr}
               placeholder="Search"
             />
-            <img src="/assets/search.png" alt="search" />
+            <img src="/assets/search.png" alt="search" onClick={()=>search(searchStr)} />
           </div>
-          {/* <Link to={`/search/${searchStr}`} className="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </Link> */}
           {user.isAuthenticated ? (
-            <Link to="/userinfo" className="mx-2 logout nav-link ">{`Hi! ${
+            <Link to="/userinfo" className="mx-2 logout nav-link text-muted px-2">{`Hi! ${
               user?.firstName[0].toUpperCase() + user?.firstName.slice(1)
             }`}</Link>
           ) : (
@@ -138,7 +142,7 @@ function Header() {
                 width="20"
                 height="20"
                 fill="currentColor"
-                className="bi bi-person-circle"
+                className="bi bi-person-circle mx-1"
                 viewBox="0 0 16 16"
               >
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -155,18 +159,10 @@ function Header() {
                 to={"/cart"}
                 aria-current="page"
               >
-                Cart <span className="cart-count">{cart.length}</span>{" "}
-                <span className="visually-hidden">(current)</span>
+                Cart {cart.length>0&&<span className="cart-count bg-warning m-1">{cart.length}</span>}
               </Link>
         </div>
       </nav>
-      {"omkar" === "SuperUser" ? (
-        <Link className="btn btn-danger" to={"/admin"}>
-          Admin
-        </Link>
-      ) : (
-        ""
-      )}
     </div>
   );
 }

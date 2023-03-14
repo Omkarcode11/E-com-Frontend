@@ -29,7 +29,6 @@ function ProductDetail() {
     // http://localhost:8008/category/3
   }, [id]);
 
-  console.log(id.catId);
 
   function addCartHandler() {
     for (let i = 0; i < cartState.length; i++) {
@@ -48,11 +47,10 @@ function ProductDetail() {
       })
     );
   }
-  console.log(product.category)
 
   return (
     <div className='product-detail-layout'>
-      <div className='product-detail mb-3'>
+      <div className='product-detail'>
         <div className='product-detail-img'>
           <img
             src={product.img}
@@ -141,6 +139,7 @@ function ProductDetail() {
               price={item.price}
               id={item.id}
               categoryId={item.categoryId}
+              rating ={item.rating}
             />
           );
         })}
