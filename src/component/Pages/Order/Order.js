@@ -1,30 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import OrderCard from '../../OrderCard/OrderCard';
 import './Order.css';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { URL } from '../../../utils/BASE_URL';
-import { AppContext } from '../../../App';
-// import { useAuth0 } from '@auth0/auth0-react';
 
-function Order() {
-  const { ourUser } = useContext(AppContext);
+
+
+ function Order() {
   const [allOrder, setAllOrders] = useState([]);
-  // const { isAuthenticated, loginWithRedirect } = useAuth0();
-   const isAuthenticated =false
-   const loginWithRedirect = () => {
-   };
-  const getOrderByUser = async (userId) => {
-    let allOrders = await axios.post(`${URL}/order`, { id: userId });
-    setAllOrders(allOrders.data);
+  const navigate = useNavigate()
+   const isAuthenticated =localStorage.getItem('isAuthenticated')
+  const getOrderByUser =async  () => {
+       let orders = JSON.parse(localStorage.getItem('order'))
+      let orderData = await axios.post(`${URL}/product/`,{id:orders.productId})
+      console.log(orderData)
+      setAllOrders(orderData.data)
   };
-
   useEffect(() => {
     if (isAuthenticated) {
-      getOrderByUser(ourUser.id);
+      getOrderByUser();
     } else {
-      loginWithRedirect();
+      navigate('/')
     }
-  }, []);
+  }, [isAuthenticated,navigate]);
 
   return (
     <div className="Order-layout">
@@ -37,10 +36,10 @@ function Order() {
             key={item.id}
             orderId={item.id}
             paymentMethod={item.paymentMethod}
-            img={item.product.img}
-            name={item.product.name}
-            price={item.totalBill}
-            qty={item.totalQuantity}
+            img={item.img}
+            name={item.name}
+            price={item.price}
+            qty={item.quantity}
             dd={item.createdAt}
           />
         ))}

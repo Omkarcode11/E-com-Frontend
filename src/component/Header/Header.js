@@ -1,34 +1,24 @@
-// import { useAuth0 } from '@auth0/auth0-react';
-import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { AppContext } from '../../App';
-import { addOrder } from "../../redux/feature/orderSlice";
-import { URL } from "../../utils/BASE_URL";
+import { AppContext } from "../../App";
 import "./Header.css";
 
 function Header() {
-  // const { ourUser, setOurUser } = useContext(AppContext);
   const [searchStr, setSearchStr] = useState("");
-  const cart = useSelector((state) => state.cart);
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  // const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  // let isAuthenticated = false
-  // let user = {email : 'omkar@12324'}
-  // let ourUser = {name : 'omkar'}
+  const cart = useContext(AppContext);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  let isAuthenticated = localStorage.getItem("isAuthenticated");
 
-  async function myOrderHandler() {
-    let res = await axios.post(`${URL}/order`, { id: user.id });
-    let data = res.data;
-    dispatch(addOrder(data));
-  }
+  // async function myOrderHandler() {
+  //   let res = await axios.post(`${URL}/order`, { id: user.id });
+  //   let data = res.data;
+  //   dispatch(addOrder(data));
+  // }
 
-  function search(str){
-     navigate(`/search/${str}`)
-     setSearchStr('')
+  function search(str) {
+    navigate(`/search/${str}`);
+    setSearchStr("");
   }
 
   // useEffect(() => {
@@ -81,7 +71,7 @@ function Header() {
               <Link
                 className="nav-link active"
                 to={"/order"}
-                onClick={myOrderHandler}
+                // onClick={myOrderHandler}
               >
                 My Order
               </Link>
@@ -119,16 +109,23 @@ function Header() {
           <div className="search">
             <input
               onChange={(e) => setSearchStr(e.target.value)}
-              onKeyDownCapture={(e)=>e.key==="Enter"&&search(searchStr)}
+              onKeyDownCapture={(e) => e.key === "Enter" && search(searchStr)}
               className="border-0 input-search"
               type="text"
               value={searchStr}
               placeholder="Search"
             />
-            <img src="/assets/search.png" alt="search" onClick={()=>search(searchStr)} />
+            <img
+              src="/assets/search.png"
+              alt="search"
+              onClick={() => search(searchStr)}
+            />
           </div>
-          {user.isAuthenticated ? (
-            <Link to="/userinfo" className="mx-2 logout nav-link text-muted px-2">{`Hi! ${
+          {isAuthenticated ? (
+            <Link
+              to="/userinfo"
+              className="mx-2 logout nav-link text-muted px-2"
+            >{`Hi! ${
               user?.firstName[0].toUpperCase() + user?.firstName.slice(1)
             }`}</Link>
           ) : (
@@ -154,13 +151,12 @@ function Header() {
               Account<span className="visually-hidden"></span>
             </Link>
           )}
-           <Link
-                className="pe-3 nav-link"
-                to={"/cart"}
-                aria-current="page"
-              >
-                Cart {cart.length>0&&<span className="cart-count bg-warning m-1">{cart.length}</span>}
-              </Link>
+          <Link className="pe-3 nav-link" to={"/cart"} aria-current="page">
+            Cart{" "}
+            {cart.length > 0 && (
+              <span className="cart-count bg-warning m-1">{cart.length}</span>
+            )}
+          </Link>
         </div>
       </nav>
     </div>

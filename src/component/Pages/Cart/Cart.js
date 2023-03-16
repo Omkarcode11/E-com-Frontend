@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { buyNow } from '../../../redux/feature/buySlice';
 import './Cart.css'
 import CartProductCard from './CartProductCard/CartProductCard'
 
 
 export default function Cart() {
-  const cartData = useSelector((state)=>state.cart)
+
+  const cartData = JSON.parse(localStorage.getItem('cart'))
   const [totalQuantity,setTotalQuantity] = useState([])
-  const dispatch = useDispatch()
+  function checkOutHandler(){ 
+       localStorage.setItem('checkOut',JSON.stringify(cartData))
+  }
   useEffect(()=>{
     let totalQty = 0
     let totalPrice = 0
@@ -19,7 +20,7 @@ export default function Cart() {
     })
     setTotalQuantity([totalQty,totalPrice])
   },[cartData])
-
+  
   return (
     <div className="cart-layout">
       <div className="left-section">
@@ -32,7 +33,7 @@ export default function Cart() {
               img={item.img}
               qty={item.qty}
               id={item.id}
-              dispatch={dispatch}
+              key={item.id}
             />
           ))}
         </div>
@@ -51,7 +52,7 @@ export default function Cart() {
         </div>
         <div>
           <Link to={cartData.length>0 ?'/checkout':'/'}
-          onClick={cartData.length>0?()=>dispatch(buyNow([...cartData])):''}
+          onClick={cartData.length>0?()=>checkOutHandler():''}
            className='btn btn-success mt-3 w-75'>Place Order </Link >
         </div>
       </div>

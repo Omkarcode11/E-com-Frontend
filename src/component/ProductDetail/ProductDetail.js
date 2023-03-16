@@ -4,16 +4,12 @@ import ProductCard from "../../utils/Card/ProductCard/ProductCard";
 import "./ProductDetail.css";
 import axios from "axios";
 import { URL } from "./../../utils/BASE_URL";
-import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "../../redux/feature/cartSlice";
-import { buyNow } from "../../redux/feature/buySlice";
 
 function ProductDetail() {
   const [product, setProduct] = useState({});
   const [suggested, setSuggested] = useState([]);
   const id = useParams();
-  const dispatch = useDispatch();
-  const cartState = useSelector((state) => state.cart);
+
 
   async function getSuggestedCart(id) {
     let suggestedProduct = await axios.get(`${URL}/category/${id}`);
@@ -24,29 +20,89 @@ function ProductDetail() {
     axios.get(`${URL}/product/${id.id}`).then(function (res) {
       return setProduct(res.data);
     });
-
     getSuggestedCart(id.catId);
-    // http://localhost:8008/category/3
   }, [id]);
 
 
-  function addCartHandler() {
-    for (let i = 0; i < cartState.length; i++) {
-      if (product.id === cartState[i].id) {
-        return;
+  function cartHandler() {
+    let prod = {
+      name: product.name,
+      price: product.price,
+      img: product.img,
+      id: product.id,
+      categoryId: product.categoryId,
+      qty: 1,
+    };
+    if (localStorage.getItem("cart")) {
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      for (let i = 0; i < cart.length; i++) {
+        if (product.id === cart[i].id) {
+          return;
+        }
       }
+      localStorage.setItem("cart", JSON.stringify(cart + prod));
+    } else {
+      localStorage.setItem("cart", prod);
     }
-    dispatch(
-      addCart({
-        name: product.name,
-        price: product.price,
-        img: product.img,
-        id: product.id,
-        categoryId: product.categoryId,
-        qty: 1,
-      })
-    );
   }
+  // function buyHandler() {
+  //   let prod = {
+  //     id: product.id,
+  //     img: product.img,
+  //     name: product.name,
+  //     price: product.price,
+  //     qty: 1,
+  //   };
+  //   if (localStorage.getItem("order")) {
+  //     let order = localStorage.getItem(localStorage.getItem("order"));
+  //     localStorage.setItem("order", JSON.stringify(prod, order));
+  //   } else {
+  //     localStorage.setItem("order", JSON.stringify(prod));
+  //   }
+  // }
+
+  function checkOutHandle(){
+    let prod = {
+      id: product.id,
+      img: product.img,
+      name: product.name,
+      price: product.price,
+      qty: 1,
+    };
+    localStorage.setItem('checkOut',JSON.stringify([prod]))
+  }
+
+  // function addCartHandler() {
+  //   for (let i = 0; i < cartState.length; i++) {
+  //     if (product.id === cartState[i].id) {
+  //       return;
+  //     }
+  //   }
+  //   dispatch(
+  //     addCart({
+  //       name: product.name,
+  //       price: product.price,
+  //       img: product.img,
+  //       id: product.id,
+  //       categoryId: product.categoryId,
+  //       qty: 1,
+  //     })
+  //   );
+  // }
+    
+  // () =>
+  //                 dispatch(
+  //                   buyNow([
+  //                     {
+  //                       id: product.id,
+  //                       img: product.img,
+  //                       name: product.name,
+  //                       qty: 1,
+  //                       price: product.price,
+  //                     },
+  //                   ])
+  //                 )
+                
 
   return (
     <div className='product-detail-layout'>
@@ -100,19 +156,7 @@ function ProductDetail() {
             <div className='product-detail-button '>
               <Link
                 to={"/checkout"}
-                onClick={() =>
-                  dispatch(
-                    buyNow([
-                      {
-                        id: product.id,
-                        img: product.img,
-                        name: product.name,
-                        qty: 1,
-                        price: product.price,
-                      },
-                    ])
-                  )
-                }
+                onClick={()=>checkOutHandle()}
                 type='button'
                 className='btn btn-success  '>
                 Buy Now
@@ -120,7 +164,7 @@ function ProductDetail() {
 
               <button
                 type='button'
-                onClick={addCartHandler}
+                onClick={()=>cartHandler}
                 className='btn btn-warning  mx-3'>
                 Add To Cart
               </button>

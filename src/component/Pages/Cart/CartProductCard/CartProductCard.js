@@ -1,29 +1,36 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { manageQuantity, removeItem } from '../../../../redux/feature/cartSlice';
-import './CartProductCard.css';
+import React from "react";
+// import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+// import { manageQuantity, removeItem } from '../../../../redux/feature/cartSlice';
+import "./CartProductCard.css";
 
 function CartProductCard({ id, name, img, price, qty }) {
-  
-   const dispatch = useDispatch();
-   const navigate = useNavigate()
-   function manageQty(str){
-    if(str==='add'){
-      dispatch(manageQuantity({
-        id  : id,
-        qty : 1
-      }))
-    }else{
-      dispatch(manageQuantity({
-        id:id,
-        qty: -1
-      }))
+  //  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function manageQty(str) {
+    let cartData =JSON.parse(localStorage.getItem('cart')) 
+    if (str === "add") {
+      let index = cartData.findIndex((item)=>item.id===id)
+      cartData[index].qty++
+      localStorage.setItem('cart',JSON.stringify(cartData))
+    } else {
+      let index = cartData.findIndex((item)=>item.id===id)
+      if(cartData[index].qty>=1){
+        cartData[index].qty--
+        localStorage.setItem('cart',JSON.stringify(cartData))
+      }
     }
-   }
-   function productDetail(id){
-     navigate(`/product/detail/${id}/1`)
-   }
+  }
+  function productDetail(id) {
+    navigate(`/product/detail/${id}/1`);
+  }
+  function removeFromCart() {
+    let cartData = JSON.parse(localStorage.getItem("cart"));
+    let index = cartData.findIndex((item) => item.id === id);
+    cartData.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cartData));
+  }
 
   return (
     <div className="cartProductCard">
@@ -31,11 +38,11 @@ function CartProductCard({ id, name, img, price, qty }) {
         <img src={img} alt="product-img" />
       </div>
       <div className="cart-product-detail">
-        <div onClick={()=>productDetail(id)}>
-        <h4 className='float-start'>{name.slice(0,30)}...</h4>
+        <div onClick={() => productDetail(id)}>
+          <h4 className="float-start">{name.slice(0, 30)}...</h4>
         </div>
         <div className="qty-buttons">
-          <span onClick={() => manageQty('add')} className="add-qty">
+          <span onClick={() => manageQty("add")} className="add-qty">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -51,7 +58,7 @@ function CartProductCard({ id, name, img, price, qty }) {
             </svg>
           </span>
           <span className="total-qty">{qty}</span>
-          <span onClick={() => manageQty('minus')} className="minus-qty">
+          <span onClick={() => manageQty("minus")} className="minus-qty">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -65,7 +72,10 @@ function CartProductCard({ id, name, img, price, qty }) {
           </span>
         </div>
         <div>
-          <button onClick={() => dispatch(removeItem({ id }))} className="btn btn-danger button-delete-cart">
+          <button
+            onClick={() => removeFromCart()}
+            className="btn btn-danger button-delete-cart"
+          >
             Delete
           </button>
         </div>
