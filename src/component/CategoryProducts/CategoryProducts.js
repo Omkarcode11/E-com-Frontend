@@ -51,7 +51,7 @@ function CategoryProducts() {
                   categoryId={item.categoryId}
                   />
                   ))}
-          </div>:lol.map(item=>item)
+          </div>:<div className='d-flex'>{lol.map(item=>item)}</div>
       }
         </div>
       </div>
