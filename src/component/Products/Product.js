@@ -18,7 +18,8 @@ function Product() {
   useEffect(() => {
     getProductsByCategoryId([1, 2, 3]);
   }, []);
-
+   
+  console.log('ehrehr')
 
   return (
     <div>

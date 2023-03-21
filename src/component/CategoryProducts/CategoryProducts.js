@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { URL } from '../../utils/BASE_URL';
 import ProductCard from '../../utils/Card/ProductCard/ProductCard';
 import Filter from '../Filter/Filter';
+import Loader from '../Loader/Loader';
 import './CategoryProducts.css';
 
 function CategoryProducts() {
@@ -26,6 +27,7 @@ function CategoryProducts() {
   );
 
   return (
+
     <div className="search-category-with-filter">
       <div>
         <Filter filter={filter} setFilter={setFilter} />
@@ -33,6 +35,7 @@ function CategoryProducts() {
       <div>
         <div className="search-category-layout">
           <h4 className="mx-4">{data.category !== 'All' ? data?.category?.category : data.category}'s Wear</h4>
+          {data.length!==0?
           <div className="search-category-product-layout">
             {data.products
               ?.filter((item) => item.price > filter.minPrice && item.price < filter.maxPrice)
@@ -45,9 +48,10 @@ function CategoryProducts() {
                   description={item.description}
                   id={item.id}
                   categoryId={item.categoryId}
-                />
-              ))}
-          </div>
+                  />
+                  ))}
+          </div>:<Loader/>
+      }
         </div>
       </div>
     </div>
