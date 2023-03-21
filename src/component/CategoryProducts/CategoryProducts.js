@@ -14,6 +14,7 @@ function CategoryProducts() {
     maxPrice: Number.MAX_VALUE,
   });
   let id = useParams();
+  let lol = new Array(10).fill(<Loader/>)
 
   async function getProductsByCategoryId(id) {
     let allProducts = await axios.get(`${URL}/category/search/${id}`);
@@ -50,7 +51,7 @@ function CategoryProducts() {
                   categoryId={item.categoryId}
                   />
                   ))}
-          </div>:<Loader/>
+          </div>:lol.map(item=>item)
       }
         </div>
       </div>
