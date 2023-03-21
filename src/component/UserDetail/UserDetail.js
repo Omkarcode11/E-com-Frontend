@@ -1,45 +1,50 @@
 // import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+// import axios from 'axios';
+import React, {  useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../App';
-import { URL } from '../../utils/BASE_URL';
+// import { AppContext } from '../../App';
+// import { URL } from '../../utils/BASE_URL';
 import './UserDetail.css';
 
 function UserDetail() {
   const navigate = useNavigate();
-  const user = {
   
-  }
-  const isAuthenticated = false
-  const logout = false
-  const { ourUser, setOurUser } = useContext(AppContext);
+  const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'))
+  const [user,setUser] = useState({})
   // const { isAuthenticated, logout, user } = useAuth0();
 
   const [newInfo, setNewInfo] = useState({
     phone: null,
     address: '',
-    pinCode: null,
-    email: user.email,
+    email: '',
   });
 
-  async function editUserHandler() {
-    await axios.patch(`${URL}/auth/edit`, newInfo);
-    getUserInfo(user);
+   function editUserHandler() {
+    // await axios.patch(`${URL}/auth/edit`, newInfo);
+    // getUserInfo(user);
+    console.log('working')
   }
 
-  async function getUserInfo(user) {
-    let userinfo = await axios.post(`${URL}/auth/login`, { email: user.email });
-    setOurUser(userinfo.data);
-  }
+  // async function getUserInfo(user) {
+  //   // let userinfo = JSON.parse(localStorage.getItem('user'))
+  //   // console.log(userinfo)
+  //   // setUser(userinfo);
+  // }
+
+
+   function logout(){
+      localStorage.setItem('isAuthenticated',false)
+      navigate('/')
+   }
 
   useEffect(() => {
+    console.log(isAuthenticated)
     if (!isAuthenticated) {
       navigate('/');
     } else {
-      getUserInfo(user);
+     setUser(JSON.parse(localStorage.getItem('user')))
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated,navigate]);
 
 
   return (
@@ -49,11 +54,11 @@ function UserDetail() {
           <img src={user.picture} className="user-image" alt="user pic" />
         </div>
         <div>
-          <h3>Name: {user.name}</h3>
+          <h3>Name: {user.firstName + " " +user.lastName}</h3>
           <div>Email: {user.email}</div>
-          <div>Address: {ourUser.address}</div>
-          <div>Phone: {ourUser.phone}</div>
-          <div>City Code:{ourUser.pinCode}</div>
+          <div>Address: {user.address}</div>
+          <div>Phone: {user.phone}</div>
+          {/* <div>City Code:{user.pinCode}</div> */}
         </div>
       </div>
 

@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { URL } from '../../utils/BASE_URL';
 import ProductCard from '../../utils/Card/ProductCard/ProductCard';
+import Loader from '../Loader/Loader';
 import './Product.css';
 
 function Product() {
   const [data, setData] = useState([]);
+  const loader = new Array(10).fill(<Loader/>)
 
   async function getProductsByCategoryId(arr) {
     let products = await axios.post(`${URL}/category/search`, { ids: arr });
@@ -39,7 +41,9 @@ function Product() {
           </svg>
               </Link>
         </div>
-        <div className="home-products">
+        {
+          data.length!==0?(
+          <div className="home-products">
           {data[0]?.map((item) => (
             <ProductCard
               key={item.id}
@@ -51,8 +55,9 @@ function Product() {
               categoryId={item.categoryId}
               rating = {item.rating}
             />
-          ))}
-        </div>
+            ))}
+        </div>):<div className='d-flex products-loader'>{loader.map(item=><div className='mx-2'>{item}</div>)}</div>
+          }
       </div>
       <div className="category-products">
         <div className="product-category-arrow">
@@ -73,7 +78,9 @@ function Product() {
           </svg>
           </Link>
         </div>
-        <div className="home-products">
+        {
+          data.length!==0?(
+          <div className="home-products">
           {data[1]?.map((item) => (
             <ProductCard
               key={item.id}
@@ -83,9 +90,11 @@ function Product() {
               description={item.description}
               id={item.id}
               categoryId={item.categoryId}
+              rating = {item.rating}
             />
-          ))}
-        </div>
+            ))}
+        </div>):<div className='d-flex products-loader'>{loader.map(item=><div className='mx-2'>{item}</div>)}</div>
+          }
       </div>
       <div className="category-products">
         <div className="product-category-arrow">
@@ -106,7 +115,9 @@ function Product() {
           </svg>
           </Link>
         </div>
-        <div className="home-products">
+        {
+          data.length!==0?(
+          <div className="home-products">
           {data[2]?.map((item) => (
             <ProductCard
               key={item.id}
@@ -116,9 +127,11 @@ function Product() {
               description={item.description}
               id={item.id}
               categoryId={item.categoryId}
+              rating = {item.rating}
             />
-          ))}
-        </div>
+            ))}
+        </div>):<div className='d-flex products-loader'>{loader.map(item=><div className='mx-2'>{item}</div>)}</div>
+          }
       </div>
     </div>
   );

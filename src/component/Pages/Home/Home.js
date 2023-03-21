@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 // import URL from '../../../utils/BASE_URL';
 import Banner from '../../Banner/Banner';
 import Footer from '../../Footer/Footer';
+// import Loader from '../../Loader/Loader';
 import Product from '../../Products/Product';
 import './Home.css'
 
