@@ -12,7 +12,6 @@ export default function AddProduct() {
 
   function dataHandler(e) {
     let productInfo = product;
-    // console.log(productInfo);
     fetch(`${URL}/product/add`, {
       method: 'POST',
       headers: {

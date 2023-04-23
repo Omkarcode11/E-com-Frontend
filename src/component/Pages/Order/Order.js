@@ -14,7 +14,6 @@ import { URL } from '../../../utils/BASE_URL';
   const getOrderByUser =async  () => {
        let orders = JSON.parse(localStorage.getItem('order'))
       let orderData = await axios.post(`${URL}/product/`,{id:orders.productId})
-      console.log(orderData)
       setAllOrders(orderData.data)
   };
   useEffect(() => {

@@ -12,7 +12,6 @@ export default function EditProduct() {
 
   function dataHandler(e) {
     let productInfo = product;
-    // console.log(productInfo);
     fetch(`${URL}/product/edit`, {
       method: 'PUT',
       headers: {

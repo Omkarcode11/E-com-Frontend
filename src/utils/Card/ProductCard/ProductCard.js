@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../../App";
 
 function ProductCard(props) {
+  const {setCart,isAuthenticated,setCheckout} = useContext(AppContext)
   let star = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,36 +26,21 @@ function ProductCard(props) {
       categoryId: props.categoryId,
       qty: 1,
     };
-    if (localStorage.getItem("cart")) {
-      let cart = await JSON.parse(localStorage.getItem("cart"));
-      console.log(cart);
+    if (localStorage.getItem("rajdhaniCart")) {
+      let cart = await JSON.parse(localStorage.getItem("rajdhaniCart"));
       for (let i = 0; i < cart.length; i++) {
         if (props.id === cart[i].id) {
           return;
         }
       }
       cart.push(prod);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      setCart(cart)
+      localStorage.setItem("rajdhaniCart", JSON.stringify(cart));
     } else {
-      localStorage.setItem("cart", JSON.stringify([]));
+      localStorage.setItem("rajdhaniCart", JSON.stringify([]));
       cartHandler()
     }
   }
-  // function buyHandler() {
-    // let prod = {
-    //   id: props.id,
-    //   img: props.img,
-    //   name: props.name,
-    //   price: props.price,
-    //   qty: 1,
-    // };
-  //   if (localStorage.getItem("order")) {
-  //     let order = localStorage.getItem(localStorage.getItem("order"));
-  //     localStorage.setItem("order", JSON.stringify(prod, order));
-  //   } else {
-  //     localStorage.setItem("order", JSON.stringify(prod));
-  //   }
-  // }
   function checkOutHandler(){
     let prod = {
       id: props.id,
@@ -62,7 +49,8 @@ function ProductCard(props) {
       price: props.price,
       qty: 1,
     };
-     localStorage.setItem('checkOut',JSON.stringify([prod]))
+    setCheckout([prod])
+    localStorage.setItem('checkOut',JSON.stringify([prod]))
   }
   return (
     <div className="card-layout m-1">
@@ -97,7 +85,7 @@ function ProductCard(props) {
         </div>
         <div>
           <Link
-            to={"/checkout"}
+            to={isAuthenticated==='true'?"/checkout":'/auth'}
             onClick={() => checkOutHandler()}
             className="btn success product-but-btn"
           >

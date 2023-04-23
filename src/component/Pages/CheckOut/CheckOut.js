@@ -1,13 +1,14 @@
-import React, {  useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import ShortProductCart from "../../ShortProductCard/ShortProductCard";
 import "./CheckOut.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
+import { AppContext } from "../../../App";
 
 export default function CheckOut() {
-  const buy = JSON.parse(localStorage.getItem('checkOut'))
+  const {checkOut} = useContext(AppContext)
   const navigate = useNavigate();
   let isAuthenticated = localStorage.getItem("isAuthenticated");
-  let userDetail = JSON.parse(localStorage.getItem('user'))
+  let userDetail = JSON.parse(localStorage.getItem('rajdhaniUser'))
   const [totals, setTotals] = useState({
     items: 0,
     totalPrice: 0,
@@ -20,36 +21,46 @@ export default function CheckOut() {
     totalQuantity: 0,
 
   });
+    
 
   function orderHandler() {
-    if (localStorage.getItem("isAuthenticated")) {
-      let AllOrders = JSON.parse(localStorage.getItem('order'))
+    let AllOrders;
+    if (localStorage.getItem("isAuthenticated").length) {
+      if(localStorage.getItem('order').length>0){
+         AllOrders = JSON.parse(localStorage.getItem('order'))
+      }else{
+        AllOrders =  (localStorage.getItem('order'))
+      }
       if (AllOrders) {
         AllOrders.productId.push(...order.productId)
         localStorage.setItem("order", JSON.stringify(AllOrders));
       }else{
         localStorage.setItem('order',JSON.stringify(order))
       }
+    // if(order.productId>1)localStorage.setItem('rajdhaniCart',[])
     navigate('/order')
-    } else {
-      navigate("/auth");
-    }
+  } else {
+    navigate("/auth");
   }
+}
+
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated==="false") {
       navigate("/auth");
-    } else {
+    } 
+    
+    else {
       let price = 0;
       let qty = 0;
-      for (let i = 0; i < buy.length; i++) {
-        price += buy[i].price * buy[i].qty;
-        qty += buy[i].qty;
+      for (let i = 0; i < checkOut.length; i++) {
+        price += checkOut[i].price * checkOut[i].qty;
+        qty += checkOut[i].qty;
       }
       setTotals({
         items: qty,
         totalPrice: price,
       });
-      let productsId = buy.map((e) => e.id);
+      let productsId = checkOut.map((e) => e.id);
       setOrder({
         ...order,
         totalQuantity: qty,
@@ -57,9 +68,9 @@ export default function CheckOut() {
         productId: productsId,
       });
     }
-  },[buy,isAuthenticated,order,navigate]);
+  },[]);
+  
 
-  // console.log(order)
 
   return (
     <div className="checkout-layout">
@@ -130,7 +141,7 @@ export default function CheckOut() {
             </div>
           </div>
           <div>
-            {buy.map((item) => (
+            {checkOut.length>0 && checkOut?.map((item) => (
               <ShortProductCart
                 key={item.id}
                 id={item.id}

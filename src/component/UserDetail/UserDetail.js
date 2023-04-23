@@ -1,28 +1,29 @@
 // import { useAuth0 } from '@auth0/auth0-react';
 // import axios from 'axios';
-import React, {  useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../App";
 // import { AppContext } from '../../App';
 // import { URL } from '../../utils/BASE_URL';
-import './UserDetail.css';
+import "./UserDetail.css";
 
 function UserDetail() {
   const navigate = useNavigate();
-  
-  const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'))
-  const [user,setUser] = useState({})
+  const { setIsAuthenticated } = useContext(AppContext);
+  const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
+  const [user, setUser] = useState({});
   // const { isAuthenticated, logout, user } = useAuth0();
 
   const [newInfo, setNewInfo] = useState({
     phone: null,
-    address: '',
-    email: '',
+    address: "",
+    email: "",
   });
 
-   function editUserHandler() {
+  function editUserHandler() {
     // await axios.patch(`${URL}/auth/edit`, newInfo);
     // getUserInfo(user);
-    console.log('working')
+    // console.log('working')
   }
 
   // async function getUserInfo(user) {
@@ -31,33 +32,31 @@ function UserDetail() {
   //   // setUser(userinfo);
   // }
 
-
-   function logout(){
-      localStorage.setItem('isAuthenticated',false)
-      navigate('/')
-   }
+  function logout() {
+    setIsAuthenticated(false);
+    localStorage.setItem("isAuthenticated", false);
+    navigate("/");
+  }
 
   useEffect(() => {
-    console.log(isAuthenticated)
     if (!isAuthenticated) {
-      navigate('/');
+      navigate("/");
     } else {
-     setUser(JSON.parse(localStorage.getItem('user')))
+      setUser(JSON.parse(localStorage.getItem("rajdhaniUser")));
     }
-  }, [isAuthenticated,navigate]);
-
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="userDetail-layout">
       <div className="top-section">
         <div className="user-image-container">
-          <img src={user.picture} className="user-image" alt="user pic" />
+          <img src={user?.picture} className="user-image" alt="user pic" />
         </div>
         <div>
-          <h3>Name: {user.firstName + " " +user.lastName}</h3>
-          <div>Email: {user.email}</div>
-          <div>Address: {user.address}</div>
-          <div>Phone: {user.phone}</div>
+          <h3>Name: {user?.firstName + " " + user?.lastName}</h3>
+          <div>Email: {user?.email}</div>
+          <div>Address: {user?.address}</div>
+          <div>Phone: {user?.phone}</div>
           {/* <div>City Code:{user.pinCode}</div> */}
         </div>
       </div>
@@ -66,19 +65,19 @@ function UserDetail() {
       <div className="user-info-edit">
         <h5>Phone</h5>
         <input
-          type={'Number'}
+          type={"Number"}
           onChange={(e) => setNewInfo({ ...newInfo, phone: e.target.value })}
           placeholder="new phone"
         />
         <h5>Address</h5>
         <input
-          type={'text'}
+          type={"text"}
           onChange={(e) => setNewInfo({ ...newInfo, address: e.target.value })}
           placeholder="new address"
         />
         <h5>Pin Code</h5>
         <input
-          type={'number'}
+          type={"number"}
           onChange={(e) => setNewInfo({ ...newInfo, pinCode: e.target.value })}
           placeholder="new address"
         />

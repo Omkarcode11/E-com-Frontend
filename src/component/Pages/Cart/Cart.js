@@ -1,25 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../../App';
 import './Cart.css'
 import CartProductCard from './CartProductCard/CartProductCard'
 
 
 export default function Cart() {
-
-  const cartData = JSON.parse(localStorage.getItem('cart'))
+  let {cart,setCheckout} = useContext(AppContext)
+  let [cartData,setCartData] = useState([])
   const [totalQuantity,setTotalQuantity] = useState([])
-  function checkOutHandler(){ 
-       localStorage.setItem('checkOut',JSON.stringify(cartData))
+  function checkOutHandler(){
+      setCheckout(cartData)
+      localStorage.setItem('checkOut',JSON.stringify(cartData))
   }
+
   useEffect(()=>{
     let totalQty = 0
     let totalPrice = 0
-    cartData.forEach((i)=>{
+    cartData?.forEach((i)=>{
       totalQty += i.qty
       totalPrice += i.qty * i.price
     })
     setTotalQuantity([totalQty,totalPrice])
   },[cartData])
+
+  useEffect(()=>{
+ setCartData(cart)
+  },[setCartData,cart])
   
   return (
     <div className="cart-layout">
@@ -51,8 +58,8 @@ export default function Cart() {
           </div>
         </div>
         <div>
-          <Link to={cartData.length>0 ?'/checkout':'/'}
-          onClick={cartData.length>0?()=>checkOutHandler():''}
+          <Link to={cartData?.length>0 ?'/checkout':'/'}
+          onClick={cartData?.length>0?()=>checkOutHandler():''}
            className='btn btn-success mt-3 w-75'>Place Order </Link >
         </div>
       </div>

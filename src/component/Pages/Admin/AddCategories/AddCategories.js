@@ -9,7 +9,6 @@ export default function AddCategories() {
 
   function dataHandler(e) {
     let productInfo = category;
-    // console.log(productInfo);
     fetch(`${URL}/category/add`, {
       method: 'POST',
       headers: {

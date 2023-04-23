@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 // import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../../App";
 // import { manageQuantity, removeItem } from '../../../../redux/feature/cartSlice';
 import "./CartProductCard.css";
 
 function CartProductCard({ id, name, img, price, qty }) {
-  //  const dispatch = useDispatch();
+  const {setCart}= useContext(AppContext)
+  const cartData = JSON.parse(localStorage.getItem('rajdhaniCart'))
   const navigate = useNavigate();
   function manageQty(str) {
-    let cartData =JSON.parse(localStorage.getItem('cart')) 
+ 
     if (str === "add") {
       let index = cartData.findIndex((item)=>item.id===id)
       cartData[index].qty++
-      localStorage.setItem('cart',JSON.stringify(cartData))
+      setCart(cartData)
+      localStorage.setItem('rajdhaniCart',JSON.stringify(cartData))
     } else {
       let index = cartData.findIndex((item)=>item.id===id)
       if(cartData[index].qty>=1){
         cartData[index].qty--
-        localStorage.setItem('cart',JSON.stringify(cartData))
+        setCart(cartData)
+        localStorage.setItem('rajdhaniCart',JSON.stringify(cartData))
       }
     }
   }
@@ -25,13 +29,17 @@ function CartProductCard({ id, name, img, price, qty }) {
     navigate(`/product/detail/${id}/1`);
   }
   function removeFromCart() {
-    let cartData = JSON.parse(localStorage.getItem("cart"));
-    let index = cartData.findIndex((item) => item.id === id);
-    cartData.splice(index, 1);
-
-    localStorage.setItem("cart", JSON.stringify(cartData));
+    let rmCartData = cartData
+    let index = rmCartData.findIndex((item) => item.id === id);
+    rmCartData.splice(index, 1);
+    setCart(rmCartData)
+    localStorage.setItem("rajdhaniCart", JSON.stringify(rmCartData));
   }
 
+  useEffect(()=>{
+
+  },[cartData])
+  
   return (
     <div className="cartProductCard">
       <div className="cart-product-img">
